@@ -34,10 +34,25 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v5
 
-            - name: Build .htpasswd for test basic auth
+            - name: Build test basic auth files
               run: |
+                  if [ -z "${{ secrets.TEST_BASIC_AUTH_USERFILE }}" ]; then
+                    echo "Missing secret TEST_BASIC_AUTH_USERFILE (absolute server path to .htpasswd)." >&2
+                    exit 1
+                  fi
+
                   printf '%s:%s\n' "${{ secrets.TEST_BASIC_AUTH_USER }}" "${{ secrets.TEST_BASIC_AUTH_PASSWORD_HASH }}" > public/.htpasswd
                   chmod 600 public/.htpasswd
+
+                  cat > public/.htaccess <<EOF
+                  AuthType Basic
+                  AuthName "Testbereich Ruestzeithaus Salza"
+                  AuthUserFile ${{ secrets.TEST_BASIC_AUTH_USERFILE }}
+                  Require valid-user
+                  <Files ".htpasswd">
+                      Require all denied
+                  </Files>
+                  EOF
 
             - name: Deploy test pages via SFTP
               uses: wlixcc/SFTP-Deploy-Action@v1.2.4

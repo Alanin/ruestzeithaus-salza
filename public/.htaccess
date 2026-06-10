@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Testbereich Ruestzeithaus Salza"
-AuthUserFile ./.htpasswd
-Require valid-user
