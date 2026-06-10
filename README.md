@@ -47,3 +47,17 @@ Die Dateien in `public/` können direkt im Browser geöffnet oder mit einem loka
 ```bash
 cd public && python3 -m http.server 8000
 ```
+
+## Kostenlose SEO-Basis
+
+Folgende Punkte sind im Projekt umgesetzt:
+
+- JSON-LD in `public/index.html` (`LodgingBusiness` + `FAQPage`)
+- `public/robots.txt`
+- `public/sitemap.xml`
+
+Für Google ohne Werbekosten:
+
+1. Domain in der Google Search Console verifizieren
+2. `https://ruestzeithaus-salza.de/sitemap.xml` einreichen
+3. Indexierung über URL-Prüfung anstoßen und Verbesserungsberichte beobachten
