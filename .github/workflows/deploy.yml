@@ -26,16 +26,27 @@ jobs:
                   remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
                   sftp_only: true
 
-            - name: Deploy assets via SFTP
-              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-              with:
-                  server: ${{ secrets.SFTP_HOST }}
-                  username: ${{ secrets.SFTP_USER }}
-                  password: ${{ secrets.SFTP_PASSWORD }}
-                  port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/assets/*"
-                  remote_path: ${{ secrets.SFTP_REMOTE_PATH }}/assets
-                  sftp_only: false
+            - name: Deploy assets via SFTP batch
+              shell: bash
+              env:
+                  SFTP_HOST: ${{ secrets.SFTP_HOST }}
+                  SFTP_USER: ${{ secrets.SFTP_USER }}
+                  SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+                  SFTP_PORT: ${{ secrets.SFTP_PORT }}
+                  SFTP_REMOTE_PATH: ${{ secrets.SFTP_REMOTE_PATH }}
+              run: |
+                  sudo apt-get update -qq
+                  sudo apt-get install -y -qq sshpass
+                  ROOT="${SFTP_REMOTE_PATH%/}"
+                  if [ -z "$ROOT" ]; then ROOT="/"; fi
+                  {
+                      echo "-mkdir ${ROOT}/assets"
+                      echo "-mkdir ${ROOT}/assets/gallery"
+                      for file in public/assets/gallery/*; do
+                          echo "put ${file} ${ROOT}/assets/gallery/"
+                      done
+                  } > deploy-assets.sftp
+                  sshpass -p "$SFTP_PASSWORD" sftp -o StrictHostKeyChecking=no -P "$SFTP_PORT" -b deploy-assets.sftp "$SFTP_USER@$SFTP_HOST"
 
     deploy-test:
         if: github.ref == 'refs/heads/test'
@@ -56,13 +67,24 @@ jobs:
                   remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
                   sftp_only: true
 
-            - name: Deploy test assets via SFTP
-              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-              with:
-                  server: ${{ secrets.SFTP_HOST }}
-                  username: ${{ secrets.SFTP_TEST_USER }}
-                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
-                  port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/assets/*"
-                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}/assets
-                  sftp_only: false
+            - name: Deploy test assets via SFTP batch
+              shell: bash
+              env:
+                  SFTP_HOST: ${{ secrets.SFTP_HOST }}
+                  SFTP_USER: ${{ secrets.SFTP_TEST_USER }}
+                  SFTP_PASSWORD: ${{ secrets.SFTP_TEST_PASSWORD }}
+                  SFTP_PORT: ${{ secrets.SFTP_PORT }}
+                  SFTP_REMOTE_PATH: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
+              run: |
+                  sudo apt-get update -qq
+                  sudo apt-get install -y -qq sshpass
+                  ROOT="${SFTP_REMOTE_PATH%/}"
+                  if [ -z "$ROOT" ]; then ROOT="/"; fi
+                  {
+                      echo "-mkdir ${ROOT}/assets"
+                      echo "-mkdir ${ROOT}/assets/gallery"
+                      for file in public/assets/gallery/*; do
+                          echo "put ${file} ${ROOT}/assets/gallery/"
+                      done
+                  } > deploy-assets.sftp
+                  sshpass -p "$SFTP_PASSWORD" sftp -o StrictHostKeyChecking=no -P "$SFTP_PORT" -b deploy-assets.sftp "$SFTP_USER@$SFTP_HOST"
