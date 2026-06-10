@@ -22,7 +22,7 @@ jobs:
                   username: ${{ secrets.SFTP_USER }}
                   password: ${{ secrets.SFTP_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/*"
+                  local_path: "./public/**"
                   remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
                   sftp_only: true
 
@@ -41,6 +41,6 @@ jobs:
                   username: ${{ secrets.SFTP_TEST_USER }}
                   password: ${{ secrets.SFTP_TEST_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/*"
+                  local_path: "./public/**"
                   remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
                   sftp_only: true
