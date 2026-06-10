@@ -34,6 +34,11 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v5
 
+            - name: Build .htpasswd for test basic auth
+              run: |
+                  printf '%s:%s\n' "${{ secrets.TEST_BASIC_AUTH_USER }}" "${{ secrets.TEST_BASIC_AUTH_PASSWORD_HASH }}" > public/.htpasswd
+                  chmod 600 public/.htpasswd
+
             - name: Deploy test pages via SFTP
               uses: wlixcc/SFTP-Deploy-Action@v1.2.4
               with:
@@ -42,5 +47,27 @@ jobs:
                   password: ${{ secrets.SFTP_TEST_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
                   local_path: "./public/*"
+                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
+                  sftp_only: true
+
+            - name: Deploy test .htaccess via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_TEST_USER }}
+                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/.htaccess"
+                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
+                  sftp_only: true
+
+            - name: Deploy test .htpasswd via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_TEST_USER }}
+                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/.htpasswd"
                   remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
                   sftp_only: true
