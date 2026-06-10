@@ -36,20 +36,21 @@ jobs:
 
             - name: Build test basic auth files
               run: |
-                  if [ -z "${{ secrets.TEST_BASIC_AUTH_USERFILE }}" ]; then
-                    echo "Missing secret TEST_BASIC_AUTH_USERFILE (absolute server path to .htpasswd)." >&2
+                  if [ -z "${{ secrets.TEST_BASIC_AUTH_USER }}" ] || [ -z "${{ secrets.TEST_BASIC_AUTH_PASSWORD }}" ]; then
+                    echo "Missing TEST_BASIC_AUTH_USER or TEST_BASIC_AUTH_PASSWORD secret." >&2
                     exit 1
                   fi
 
-                  printf '%s:%s\n' "${{ secrets.TEST_BASIC_AUTH_USER }}" "${{ secrets.TEST_BASIC_AUTH_PASSWORD_HASH }}" > public/.htpasswd
-                  chmod 600 public/.htpasswd
+                  AUTH_B64="$(printf '%s:%s' "${{ secrets.TEST_BASIC_AUTH_USER }}" "${{ secrets.TEST_BASIC_AUTH_PASSWORD }}" | base64 | tr -d '\n')"
 
                   cat > public/.htaccess <<EOF
-                  AuthType Basic
-                  AuthName "Testbereich Ruestzeithaus Salza"
-                  AuthUserFile ${{ secrets.TEST_BASIC_AUTH_USERFILE }}
-                  Require valid-user
-                  <Files ".htpasswd">
+                  RewriteEngine On
+                  RewriteCond %{HTTP:Authorization} !=Basic\ ${AUTH_B64}
+                  RewriteRule ^ - [E=NEED_AUTH:1]
+                  Header always set WWW-Authenticate "Basic realm=\"Testbereich Ruestzeithaus Salza\"" env=NEED_AUTH
+                  RewriteCond %{ENV:NEED_AUTH} =1
+                  RewriteRule ^ - [R=401,L]
+                  <Files ".ht*">
                       Require all denied
                   </Files>
                   EOF
@@ -73,16 +74,5 @@ jobs:
                   password: ${{ secrets.SFTP_TEST_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
                   local_path: "./public/.htaccess"
-                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
-                  sftp_only: true
-
-            - name: Deploy test .htpasswd via SFTP
-              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-              with:
-                  server: ${{ secrets.SFTP_HOST }}
-                  username: ${{ secrets.SFTP_TEST_USER }}
-                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
-                  port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/.htpasswd"
                   remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
                   sftp_only: true

@@ -31,21 +31,14 @@ Folgende Secrets müssen im Repository konfiguriert werden:
 | `SFTP_TEST_PASSWORD` | Passwort für Testdeployment |
 | `SFTP_TEST_REMOTE_PATH` | Zielverzeichnis für Testdeployment |
 | `TEST_BASIC_AUTH_USER` | Benutzername für HTTP Basic Auth auf `test` |
-| `TEST_BASIC_AUTH_PASSWORD_HASH` | bcrypt-Hash für HTTP Basic Auth auf `test` |
-| `TEST_BASIC_AUTH_USERFILE` | Absoluter Serverpfad zur `.htpasswd`-Datei (z. B. `/home/.../test/.htpasswd`) |
+| `TEST_BASIC_AUTH_PASSWORD` | Passwort für HTTP Basic Auth auf `test` |
 
 ### Basic Auth auf `test`
 
 Die Testumgebung wird beim Deployment auf Branch `test` vollständig per HTTP Basic Auth geschützt.
 
-- `.htaccess` und `.htpasswd` werden in der GitHub Action zur Laufzeit erzeugt und nicht im Repository gespeichert
-- `TEST_BASIC_AUTH_USERFILE` muss ein **absoluter Pfad** auf dem Webserver sein (relativer Pfad führt bei Apache zu `500 Internal Server Error`)
-
-Hash für `TEST_BASIC_AUTH_PASSWORD_HASH` erstellen:
-
-```bash
-htpasswd -nbBC 10 BENUTZER PASSWORT | cut -d ":" -f2-
-```
+- `.htaccess` wird in der GitHub Action zur Laufzeit erzeugt und nicht im Repository gespeichert
+- Es wird kein `AuthUserFile` benötigt, dadurch tritt kein Apache-`500` wegen ungültigem Dateipfad auf
 
 ## Lokale Entwicklung
 
