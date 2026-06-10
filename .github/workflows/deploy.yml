@@ -45,7 +45,7 @@ jobs:
 
                   cat > public/.htaccess <<EOF
                   RewriteEngine On
-                  RewriteCond %{HTTP:Authorization} !=Basic\ ${AUTH_B64}
+                  RewriteCond %{HTTP:Authorization} !^Basic[[:space:]]+${AUTH_B64}$ [NC]
                   RewriteRule ^ - [E=NEED_AUTH:1]
                   Header always set WWW-Authenticate "Basic realm=\"Testbereich Ruestzeithaus Salza\"" env=NEED_AUTH
                   RewriteCond %{ENV:NEED_AUTH} =1
