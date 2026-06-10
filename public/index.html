@@ -3,53 +3,929 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rüstzeithaus Salza – Demnächst</title>
+    <title>Rüstzeithaus Nordhausen-Salza</title>
+    <meta name="description" content="Rüstzeithaus Nordhausen-Salza: Gruppenunterkunft für Freizeiten, Gemeindewochenenden, Familien- und Jugendgruppen. Mit Preisen, Ausstattung, Umgebung und Buchungsanfrage per E-Mail.">
+    <meta name="robots" content="index,follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Rüstzeithaus Nordhausen-Salza">
+    <meta property="og:description" content="Statische Infoseite mit Ausstattung, Preisen, Galerie und Buchungsanfrage für das Rüstzeithaus in Nordhausen-Salza.">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:image" content="./assets/gallery/hero.jpg">
+    <meta property="og:url" content="https://ruestzeithaus-salza.de/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rüstzeithaus Nordhausen-Salza">
+    <meta name="twitter:description" content="Gruppenunterkunft in Nordhausen-Salza mit Preisen, Ausstattung und direkter Buchungsanfrage per E-Mail.">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LodgingBusiness",
+            "name": "Rüstzeithaus Nordhausen-Salza",
+            "description": "Gruppenunterkunft der Evangelischen Kirchgemeinde Nordhausen-Salza für Freizeiten, Gemeindewochenenden und Seminare.",
+            "email": "info@ruestzeithaus-salza.de",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Pfarrstr. 8",
+                "postalCode": "99734",
+                "addressLocality": "Nordhausen",
+                "addressCountry": "DE"
+            },
+            "url": "https://ruestzeithaus-salza.de/"
+        }
+    </script>
     <style>
+        :root {
+            --bg: #06080d;
+            --bg-soft: #eef3f9;
+            --card: #ffffff;
+            --card-strong: #f7fbff;
+            --ink: #e8efff;
+            --subtle: #5b6b81;
+            --accent: #2f8ed0;
+            --accent-2: #8ff7c6;
+            --border: #d7e1ef;
+            --shadow: 0 20px 50px rgba(15, 41, 72, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
+            margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            text-align: center;
-            padding: 2rem;
+            color: var(--ink);
+            background: #f5f8fc;
+            line-height: 1.55;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 600px;
+            width: min(1140px, 100% - 2rem);
+            margin: 0 auto;
+            padding: 0 0 4rem;
+            color: #24354a;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+            margin-bottom: 2rem;
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("./assets/gallery/hero.jpg") center/cover no-repeat;
+            transform: scale(1.05);
+            animation: hero-pan 26s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.22) 45%, rgba(255, 255, 255, 0.08) 100%);
+            z-index: -1;
+        }
+
+        .hero-inner {
+            width: min(980px, 100% - 2rem);
+            text-align: center;
+            padding: 6rem 0 5rem;
+            background: rgba(10, 24, 43, 0.44);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 24px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 14px 38px rgba(7, 18, 35, 0.3);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(7, 19, 38, 0.62);
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
         }
 
         h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            margin: 1.1rem 0 0.5rem;
+            font-size: clamp(2rem, 4.8vw, 4.1rem);
+            line-height: 1.08;
+            text-wrap: balance;
         }
 
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            line-height: 1.6;
+        .subtitle {
+            margin: 0 auto;
+            max-width: 72ch;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #deebff;
+            opacity: 0.96;
         }
 
-        .icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+        .hero-actions {
+            margin-top: 1.7rem;
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            color: #041020;
+            background: linear-gradient(120deg, var(--accent-2), var(--accent));
+            border: 0;
+            border-radius: 999px;
+            padding: 0.65rem 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 30px rgba(106, 196, 255, 0.25);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button.ghost {
+            color: #e7f5ff;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: none;
+        }
+
+        section {
+            scroll-margin-top: 90px;
+        }
+
+        .section {
+            margin-top: 1.4rem;
+            padding: 1.2rem;
+            border-radius: 18px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .section h2 {
+            margin: 0 0 0.6rem;
+            color: #1f466e;
+            font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+        }
+
+        .section:first-of-type {
+            margin-top: 1.2rem;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 20px 44px rgba(15, 41, 72, 0.15);
+        }
+
+        .facts {
+            display: grid;
+            gap: 0.95rem;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        }
+
+        .fact {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .fact:hover {
+            transform: translateY(-4px);
+            border-color: rgba(143, 247, 198, 0.65);
+        }
+
+        .fact strong {
+            display: block;
+            font-size: 1.5rem;
+            color: #1f4467;
+            line-height: 1.1;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            background: var(--card-strong);
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #1f4467;
+        }
+
+        ul {
+            margin: 0.55rem 0 0;
+            padding-left: 1.1rem;
+        }
+
+        .prices {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.25rem;
+            min-width: 520px;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #d8e2ef;
+            text-align: left;
+            padding: 0.7rem 0.5rem;
+        }
+
+        th {
+            color: #395878;
+        }
+
+        .gallery {
+            display: grid;
+            gap: 0.85rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .gallery figure {
+            margin: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid #d8e2ef;
+            background: rgba(0, 0, 0, 0.2);
+            aspect-ratio: 4 / 3;
+            box-shadow: 0 10px 30px rgba(15, 41, 72, 0.16);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scale(1.01);
+            transition: transform 0.5s ease;
+        }
+
+        .gallery figure:hover img {
+            transform: scale(1.08);
+        }
+
+        .audience-grid {
+            display: grid;
+            gap: 0.85rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-top: 0.6rem;
+        }
+
+        .audience-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem;
+            background: #fbfdff;
+        }
+
+        .audience-item h3 {
+            margin: 0 0 0.35rem;
+            color: #1f466e;
+            font-size: 1.02rem;
+        }
+
+        .faq-list {
+            margin-top: 0.6rem;
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .faq-list details {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+            padding: 0.7rem 0.85rem;
+        }
+
+        .faq-list summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #1f466e;
+        }
+
+        .faq-list p {
+            margin: 0.5rem 0 0;
+        }
+
+        .info-split {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .checklist {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+            padding: 0.9rem;
+        }
+
+        .checklist h3 {
+            margin: 0 0 0.35rem;
+            color: #1f466e;
+        }
+
+        .booking-steps {
+            display: grid;
+            gap: 0.85rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-top: 0.6rem;
+        }
+
+        .step-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fbfdff;
+            padding: 0.9rem;
+        }
+
+        .step-card .step-number {
+            display: inline-block;
+            width: 1.6rem;
+            height: 1.6rem;
+            line-height: 1.6rem;
+            text-align: center;
+            border-radius: 999px;
+            color: #fff;
+            background: #1f466e;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .step-card h3 {
+            margin: 0 0 0.2rem;
+            color: #1f466e;
+            font-size: 1rem;
+        }
+
+        .notice {
+            margin-top: 0.7rem;
+            border: 1px solid #bfd5ed;
+            background: #eef5fd;
+            color: #29496d;
+            border-radius: 10px;
+            padding: 0.55rem 0.7rem;
+            font-size: 0.94rem;
+        }
+
+        .mail-template-link {
+            display: inline-block;
+            margin-top: 0.45rem;
+            color: #1f7f9c;
+            font-weight: 600;
+        }
+
+        .contact {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1.1fr 1fr;
+        }
+
+        .contact-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem;
+        }
+
+        .mini-map {
+            margin-top: 0.75rem;
+            border: 1px solid #d8e2ef;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fbff;
+        }
+
+        .mini-map svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .meta {
+            color: var(--subtle);
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger:nth-child(2) { transition-delay: 0.08s; }
+        .stagger:nth-child(3) { transition-delay: 0.16s; }
+        .stagger:nth-child(4) { transition-delay: 0.24s; }
+
+        footer {
+            margin-top: 1.1rem;
+            color: #4f627c;
+            font-size: 0.93rem;
+        }
+
+        footer a {
+            color: #1f7f9c;
+        }
+
+        .footer-links {
+            margin-top: 0.35rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .small {
+            font-size: 0.92rem;
+            color: var(--subtle);
+        }
+
+        @keyframes hero-pan {
+            0% { transform: scale(1.05) translateX(0) translateY(0); }
+            100% { transform: scale(1.12) translateX(-2.2%) translateY(-1.4%); }
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                min-height: 82vh;
+                padding: 1.3rem 0.75rem 2.4rem;
+                -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+                mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+            }
+
+            .hero-inner {
+                width: 100%;
+                padding: 3.8rem 1rem 2.8rem;
+                border-radius: 20px;
+            }
+
+            .eyebrow {
+                margin-bottom: 0.9rem;
+                padding: 0.45rem 0.95rem;
+                line-height: 1.35;
+            }
+
+            h1 {
+                margin: 0 0 0.85rem;
+                font-size: clamp(2rem, 10vw, 3rem);
+            }
+
+            .subtitle {
+                max-width: 34ch;
+            }
+
+            .hero-actions {
+                margin-top: 1.2rem;
+            }
+
+            .prices {
+                overflow-x: visible;
+            }
+
+            .prices table {
+                min-width: 0;
+                border-collapse: collapse;
+                table-layout: fixed;
+            }
+
+            .prices thead {
+                display: table-header-group;
+            }
+
+            .prices tbody tr {
+                display: table-row;
+            }
+
+            .prices tbody tr:last-child {
+                border-bottom: 0;
+            }
+
+            .prices th,
+            .prices td {
+                display: table-cell;
+                padding: 0.6rem 0.35rem;
+                text-align: left;
+                vertical-align: top;
+            }
+
+            .prices td::before {
+                content: none;
+            }
+
+            .prices th:last-child,
+            .prices td:last-child {
+                text-align: right;
+                white-space: nowrap;
+                font-weight: 700;
+                color: #1f466e;
+            }
+
+            .prices th:first-child,
+            .prices td:first-child {
+                padding-right: 0.8rem;
+                overflow-wrap: anywhere;
+            }
+
+            .section:first-of-type {
+                margin-top: 1rem;
+            }
+
+            .contact {
+                grid-template-columns: 1fr;
+            }
+
+            .info-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .hero::before {
+                animation: none;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="icon">🏗️</div>
-        <h1>Rüstzeithaus Salza</h1>
-        <p>Hier entsteht die neue Webseite des Rüstzeithauses der evangelischen Gemeinde Salza.</p>
-        <p>Wir arbeiten daran – bitte schauen Sie bald wieder vorbei!</p>
+<header class="hero">
+    <div class="hero-inner reveal is-visible">
+        <span class="eyebrow">Evangelische Kirchgemeinde Nordhausen-Salza</span>
+        <h1>Herzlich willkommen im Rüstzeithaus</h1>
+        <p class="subtitle">
+            Ein Ort für Gemeinschaft, Freizeiten und Begegnung — ruhig gelegen in Nordhausen-Salza,
+            mit gemütlichen Zimmern, viel Außenfläche und guter Ausstattung für Gruppen.
+        </p>
+        <div class="hero-actions">
+            <a class="button" href="#kontakt">Jetzt anfragen</a>
+            <a class="button ghost" href="#galerie">Bilder ansehen</a>
+        </div>
     </div>
+</header>
+
+<main class="container">
+    <section class="section reveal" id="einleitung">
+        <h2>Rüstzeithaus in Nordhausen-Salza: Die Gruppenunterkunft für Freizeiten, Gemeindewochenenden und Familienzeiten</h2>
+        <p>
+            Das Rüstzeithaus der Evangelischen Kirchgemeinde Nordhausen-Salza ist eine vielseitige Unterkunft für
+            Gemeindefreizeiten, Jugendgruppen, Familienfreizeiten, Schulklassen, Chöre und Seminare. In ruhiger Lage
+            in Nordhausen-Salza finden Gruppen hier eine verlässliche, bezahlbare und praktische Übernachtungsmöglichkeit
+            mit Selbstversorger-Küche, Aufenthaltsbereich und großzügigem Außengelände.
+        </p>
+        <p>
+            Wer ein <strong>Rüstzeithaus in Thüringen</strong>, eine <strong>Gruppenunterkunft in Nordhausen</strong> oder ein
+            <strong>Freizeitheim für kirchliche und soziale Gruppen</strong> sucht, ist hier richtig: kurze Wege, flexible
+            Nutzung, familienfreundliche Ausstattung und ein Umfeld, das Gemeinschaft fördert.
+        </p>
+    </section>
+
+    <section class="section reveal" id="ueberblick">
+        <h2>Auf einen Blick</h2>
+        <div class="facts">
+            <article class="fact reveal stagger">
+                <strong>16 + 4 Betten</strong>
+                <div>Rüstzeithaus &amp; kleines Nebenhaus</div>
+            </article>
+            <article class="fact reveal stagger">
+                <strong>Selbstversorger</strong>
+                <div>Große Küche im Pfarrhaus gegenüber</div>
+            </article>
+            <article class="fact reveal stagger">
+                <strong>Nichtraucher</strong>
+                <div>Alle Räumlichkeiten rauchfrei</div>
+            </article>
+            <article class="fact reveal stagger">
+                <strong>Familienfreundlich</strong>
+                <div>Spielplatz, Grill, Feuerschale &amp; Tischtennis</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section reveal" id="zielgruppen">
+        <h2>Für wen eignet sich das Rüstzeithaus?</h2>
+        <p>Das Haus ist besonders passend für Gruppen, die gemeinsam Zeit verbringen, kochen und Aktivitäten in Nordhausen und Umgebung planen möchten.</p>
+        <div class="audience-grid">
+            <article class="audience-item">
+                <h3>Kirchen- und Gemeindegruppen</h3>
+                <p>Für Rüstzeiten, Freizeiten, Teamtage und Wochenenden mit Gemeinschaftscharakter.</p>
+            </article>
+            <article class="audience-item">
+                <h3>Familien und Mehrgenerationengruppen</h3>
+                <p>Geeignet für gemeinsame Auszeiten mit Kindern und flexibel nutzbaren Schlafbereichen.</p>
+            </article>
+            <article class="audience-item">
+                <h3>Kinder- und Jugendgruppen</h3>
+                <p>Mit Außengelände, Spielmöglichkeiten und gut planbarer Selbstversorgung.</p>
+            </article>
+            <article class="audience-item">
+                <h3>Seminare, Chöre und Teams</h3>
+                <p>Praktisch für Arbeitsphasen, Proben und konzentrierte Tage in ruhiger Lage.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section reveal" id="haeuser">
+        <h2>Räume &amp; Ausstattung</h2>
+        <div class="grid">
+            <article class="card reveal stagger">
+                <h3>Rüstzeithaus</h3>
+                <ul>
+                    <li>4 Dreibettzimmer (mit Doppelstockbetten)</li>
+                    <li>2 Zweibettzimmer</li>
+                    <li>2 Waschräume mit Dusche und WC (inkl. Waschmaschine)</li>
+                    <li>1 Aufenthaltsraum (rollstuhlgeeignet)</li>
+                </ul>
+            </article>
+            <article class="card reveal stagger">
+                <h3>Kleines Nebenhaus</h3>
+                <ul>
+                    <li>4 weitere Schlafplätze</li>
+                    <li>Dusche und WC</li>
+                    <li>Ideal als ergänzende Unterbringung für Gruppen</li>
+                </ul>
+            </article>
+            <article class="card reveal stagger">
+                <h3>Außengelände</h3>
+                <ul>
+                    <li>Mehrere Sitzecken</li>
+                    <li>Feuerschale und Grill</li>
+                    <li>Tischtennisplatte</li>
+                    <li>Kleiner Kinderspielplatz</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="section reveal" id="preise">
+        <h2>Preise (Stand Juli 2025)</h2>
+        <div class="prices">
+            <table>
+                <thead>
+                <tr>
+                    <th>Personengruppe</th>
+                    <th>Preis pro Nacht</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td data-label="Personengruppe">Erwachsene</td>
+                    <td data-label="Preis pro Nacht">15 €</td>
+                </tr>
+                <tr>
+                    <td data-label="Personengruppe">Kinder/Jugendliche 13–17 Jahre</td>
+                    <td data-label="Preis pro Nacht">12 €</td>
+                </tr>
+                <tr>
+                    <td data-label="Personengruppe">Kinder 6–12 Jahre</td>
+                    <td data-label="Preis pro Nacht">8 €</td>
+                </tr>
+                <tr>
+                    <td data-label="Personengruppe">Kinder 0–5 Jahre</td>
+                    <td data-label="Preis pro Nacht">5 €</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="meta">Bettwäsche bitte mitbringen. Leih-Bettwäsche ist gegen eine Pauschale von 6 € möglich.</p>
+    </section>
+
+    <section class="section reveal" id="inklusive">
+        <h2>Inklusive &amp; mitbringen</h2>
+        <div class="info-split">
+            <article class="checklist">
+                <h3>Im Haus vorhanden</h3>
+                <ul>
+                    <li>Schlafplätze im Rüstzeithaus und Nebenhaus</li>
+                    <li>Küche im Pfarrhaus zur Selbstversorgung</li>
+                    <li>Aufenthaltsräume, Sanitärbereiche und Waschmaschine</li>
+                    <li>Außengelände mit Sitzecken, Grill und Spielbereich</li>
+                </ul>
+            </article>
+            <article class="checklist">
+                <h3>Bitte mitbringen</h3>
+                <ul>
+                    <li>Bettwäsche (oder Leih-Bettwäsche gegen Pauschale)</li>
+                    <li>Persönliche Hygieneartikel und Handtücher</li>
+                    <li>Lebensmittel/Getränke für die Selbstversorgung</li>
+                    <li>Bei Bedarf Spiel- und Freizeitmaterial für Gruppenzeiten</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="section reveal" id="faq">
+        <h2>Häufige Fragen</h2>
+        <div class="faq-list">
+            <details>
+                <summary>Wie viele Personen können übernachten?</summary>
+                <p>Aktuell stehen Schlafplätze im Rüstzeithaus sowie im kleinen Nebenhaus zur Verfügung. Die konkrete Belegung stimmen wir mit Ihrer Gruppengröße ab.</p>
+            </details>
+            <details>
+                <summary>Ist Selbstversorgung möglich?</summary>
+                <p>Ja. Die große Küche im Pfarrhaus kann für die Versorgung der Gruppe genutzt werden.</p>
+            </details>
+            <details>
+                <summary>Sind Tagesnutzungen ohne Übernachtung möglich?</summary>
+                <p>Ja, nach Absprache sind auch Nutzungen für einzelne Tage bzw. Veranstaltungen möglich.</p>
+            </details>
+            <details>
+                <summary>Ist das Haus für Kinder und Familien geeignet?</summary>
+                <p>Ja, durch das Außengelände mit Spielmöglichkeiten ist das Haus gut für Familien- und Kindergruppen geeignet.</p>
+            </details>
+            <details>
+                <summary>Gibt es rauchfreie Bereiche?</summary>
+                <p>Ja, alle Räumlichkeiten sind Nichtraucherbereich.</p>
+            </details>
+            <details>
+                <summary>Wie läuft die Buchungsanfrage ab?</summary>
+                <p>Schreiben Sie uns per E-Mail mit Zeitraum, Gruppengröße, geplanter Nutzung und gewünschten Räumen. Sie erhalten dann eine Rückmeldung zur Verfügbarkeit.</p>
+            </details>
+            <details>
+                <summary>Wie weit sind wichtige Ausflugsziele entfernt?</summary>
+                <p>Badehaus, Mittelbau-Dora, Harzer Schmalspurbahn und weitere Ziele sind vom Haus aus gut erreichbar. Richtwerte finden Sie im Abschnitt „Nordhausen &amp; Umgebung entdecken“.</p>
+            </details>
+        </div>
+    </section>
+
+    <section class="section reveal" id="anfrageablauf">
+        <h2>In 3 Schritten zur Buchungsanfrage</h2>
+        <div class="booking-steps">
+            <article class="step-card">
+                <span class="step-number">1</span>
+                <h3>Rahmen festlegen</h3>
+                <p>Zeitraum, ungefähre Personenzahl und Art der Nutzung kurz zusammenstellen.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-number">2</span>
+                <h3>Anfrage senden</h3>
+                <p>Wunschräume, besondere Anforderungen und Kontaktdaten per E-Mail senden.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-number">3</span>
+                <h3>Rückmeldung erhalten</h3>
+                <p>Sie erhalten eine Rückmeldung zu Verfügbarkeit, nächsten Schritten und organisatorischen Details.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section reveal" id="umgebung">
+        <h2>Nordhausen &amp; Umgebung entdecken</h2>
+        <p>
+            Rund um das Rüstzeithaus gibt es viele gut erreichbare Ziele für Gruppen, Familien und Tagesausflüge.
+            Die folgenden Angaben sind Richtwerte ab Pfarrstraße 8 in Nordhausen-Salza.
+        </p>
+        <ul>
+            <li><strong>Badehaus Nordhausen:</strong> ca. 2-3 km, etwa 5-10 Minuten mit dem Auto</li>
+            <li><strong>KZ-Gedenkstätte Mittelbau-Dora:</strong> ca. 5-7 km, etwa 10-15 Minuten mit dem Auto</li>
+            <li><strong>Bahnhof Nordhausen Nord (Harzer Schmalspurbahn):</strong> ca. 2-3 km, etwa 5-10 Minuten mit dem Auto</li>
+            <li><strong>Kyffhäuser-Denkmal:</strong> ca. 20-25 km, etwa 30-35 Minuten mit dem Auto</li>
+            <li><strong>Barbarossahöhle (Rottleben):</strong> ca. 23-25 km, etwa 30-35 Minuten mit dem Auto</li>
+        </ul>
+        <p class="small">
+            Je nach Verkehr und gewählter Strecke können Entfernungen und Fahrzeiten leicht abweichen.
+        </p>
+    </section>
+
+    <section class="section reveal" id="galerie">
+        <h2>Impressionen</h2>
+        <p class="small">Ein kleiner Eindruck von Haus, Gelände und Atmosphäre vor Ort.</p>
+        <div class="gallery">
+            <figure><img loading="lazy" src="./assets/gallery/haus-1.jpg" alt="Eindruck vom Gelände des Rüstzeithauses"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-2.jpg" alt="Außenansicht des Rüstzeithauses mit Garten"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-3.jpg" alt="Blick auf das Gelände rund um das Haus"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-4.jpg" alt="Außenansicht des Rüstzeithauses mit Garten und Hof"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-5.jpg" alt="Rüstzeithaus mit Umgebung"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-6.jpg" alt="Außenansicht und Gelände des Rüstzeithauses"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-7.jpg" alt="Blick auf Gelände und Außenbereich in Nordhausen-Salza"></figure>
+            <figure><img loading="lazy" src="./assets/gallery/haus-8.jpg" alt="Weitere Impression vom Gelände in Nordhausen-Salza"></figure>
+        </div>
+    </section>
+
+    <section class="section reveal contact" id="kontakt">
+        <article class="contact-card">
+            <h2>Anfrage &amp; Buchung</h2>
+            <p>
+                Für Buchungsanfragen und alle weiteren Fragen schreiben Sie uns bitte per E-Mail:
+            </p>
+            <p><strong>E-Mail: <a href="mailto:info@ruestzeithaus-salza.de" style="color:#1f7f9c;">info@ruestzeithaus-salza.de</a></strong></p>
+            <a class="mail-template-link" href="mailto:info@ruestzeithaus-salza.de?subject=Anfrage%20R%C3%BCstzeithaus%20Nordhausen-Salza&body=Guten%20Tag%2C%0A%0Awir%20m%C3%B6chten%20eine%20Anfrage%20f%C3%BCr%20das%20R%C3%BCstzeithaus%20stellen.%0A%0AZeitraum%20(Anreise%2FAbreise)%3A%20%0APersonenzahl%20und%20Altersstruktur%3A%20%0AGew%C3%BCnschte%20R%C3%A4ume%2FHausbereiche%3A%20%0AArt%20der%20Nutzung%3A%20%0ABesondere%20Anforderungen%3A%20%0AName%20und%20R%C3%BCckrufm%C3%B6glichkeit%3A%20%0A%0AVielen%20Dank!">Anfragevorlage per E-Mail öffnen</a>
+            <p class="notice"><strong>Hinweis:</strong> Termine sind grundsätzlich auf Anfrage verfügbar. Für Ferien- und Feiertagszeiten bitte möglichst frühzeitig anfragen.</p>
+            <p>Damit wir Ihre Anfrage schnell prüfen können, helfen uns folgende Angaben:</p>
+            <ul>
+                <li>Gewünschte Räume bzw. Hausbereiche (z. B. Rüstzeithaus, Nebenhaus)</li>
+                <li>Art der Nutzung (Freizeit, Familienwochenende, Seminar, Gemeindeveranstaltung)</li>
+                <li>Geplante Personenzahl und Altersstruktur der Gruppe</li>
+                <li>Gewünschter Zeitraum (Anreise-/Abreisedatum)</li>
+                <li>Besondere Anforderungen (z. B. Barrierefreiheit, Küchennutzung, Außenbereich)</li>
+            </ul>
+        </article>
+        <article class="contact-card">
+            <h2>Anschrift</h2>
+            <p>
+                Kirchgemeinde Nordhausen-Salza<br>
+                Pfarrstr. 8<br>
+                99734 Nordhausen
+            </p>
+            <div class="mini-map" aria-label="Lagekarte Rüstzeithaus Salza">
+                <svg viewBox="0 0 420 220" role="img" aria-label="Skizzenkarte mit Standort Pfarrstraße 8, Nordhausen-Salza">
+                    <rect x="0" y="0" width="420" height="220" fill="#eef5fd"/>
+                    <path d="M0 150 C80 130 140 170 210 150 C280 130 335 165 420 145 L420 220 L0 220 Z" fill="#dcebf9"/>
+                    <path d="M20 82 L175 82" stroke="#a2b8cf" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M175 82 L310 122" stroke="#a2b8cf" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M300 30 L300 190" stroke="#b9cadb" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M80 30 L80 190" stroke="#c7d6e6" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="230" cy="98" r="16" fill="#e94f64"/>
+                    <circle cx="230" cy="98" r="6" fill="#fff"/>
+                    <rect x="242" y="72" rx="6" ry="6" width="145" height="30" fill="#1f466e"/>
+                    <text x="254" y="92" font-size="13" fill="#ffffff" font-family="sans-serif">Rüstzeithaus Salza</text>
+                    <rect x="210" y="125" rx="6" ry="6" width="168" height="25" fill="#ffffff" stroke="#c5d5e8"/>
+                    <text x="219" y="142" font-size="12" fill="#2f4763" font-family="sans-serif">Pfarrstr. 8, 99734 Nordhausen</text>
+                </svg>
+            </div>
+            <p class="small">
+                „Der Herr ist mein Hirte, mir wird nichts mangeln.“ (Psalm 23,1-2)
+            </p>
+        </article>
+    </section>
+
+    <footer>
+        Inhaltliche Grundlage: Flyer „Rüstzeithaus“, Stand Juli 2025.
+        <div class="footer-links">
+            <a href="./impressum.html">Impressum</a>
+            <a href="./datenschutz.html">Datenschutz</a>
+        </div>
+    </footer>
+</main>
+
+<script>
+    const revealItems = document.querySelectorAll(".reveal:not(.is-visible)");
+    const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        }
+    }, {threshold: 0.14});
+
+    for (const item of revealItems) {
+        observer.observe(item);
+    }
+</script>
+
 </body>
 </html>

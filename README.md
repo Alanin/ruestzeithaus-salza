@@ -11,7 +11,10 @@ public/          → Statische Dateien (wird deployed)
 
 ## Deployment
 
-Das Deployment erfolgt automatisch bei Push auf `main` via GitHub Action auf einen SFTP-Server.
+Das Deployment erfolgt automatisch via GitHub Action auf einen SFTP-Server:
+
+- Push auf `main` → Produktion
+- Push auf `test` → Testumgebung (z. B. `test.ruestzeithaus-salza.de`)
 
 ### Benötigte Secrets
 
@@ -24,6 +27,9 @@ Folgende Secrets müssen im Repository konfiguriert werden:
 | `SFTP_PASSWORD` | Passwort |
 | `SFTP_PORT` | Port (Standard: 22) |
 | `SFTP_REMOTE_PATH` | Zielverzeichnis auf dem Server |
+| `SFTP_TEST_USER` | Benutzername für Testdeployment |
+| `SFTP_TEST_PASSWORD` | Passwort für Testdeployment |
+| `SFTP_TEST_REMOTE_PATH` | Zielverzeichnis für Testdeployment |
 
 ## Lokale Entwicklung
 
