@@ -15,16 +15,27 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v5
 
-            - name: Deploy via SFTP
+            - name: Deploy pages via SFTP
               uses: wlixcc/SFTP-Deploy-Action@v1.2.4
               with:
                   server: ${{ secrets.SFTP_HOST }}
                   username: ${{ secrets.SFTP_USER }}
                   password: ${{ secrets.SFTP_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/**"
+                  local_path: "./public/*.html"
                   remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
                   sftp_only: true
+
+            - name: Deploy assets via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_USER }}
+                  password: ${{ secrets.SFTP_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/assets/*"
+                  remote_path: ${{ secrets.SFTP_REMOTE_PATH }}/assets
+                  sftp_only: false
 
     deploy-test:
         if: github.ref == 'refs/heads/test'
@@ -34,13 +45,24 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v5
 
-            - name: Deploy test via SFTP
+            - name: Deploy test pages via SFTP
               uses: wlixcc/SFTP-Deploy-Action@v1.2.4
               with:
                   server: ${{ secrets.SFTP_HOST }}
                   username: ${{ secrets.SFTP_TEST_USER }}
                   password: ${{ secrets.SFTP_TEST_PASSWORD }}
                   port: ${{ secrets.SFTP_PORT }}
-                  local_path: "./public/**"
+                  local_path: "./public/*.html"
                   remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
                   sftp_only: true
+
+            - name: Deploy test assets via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_TEST_USER }}
+                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/assets/*"
+                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}/assets
+                  sftp_only: false
