@@ -1,0 +1,46 @@
+name: Deploy to SFTP
+
+on:
+    push:
+        branches:
+            - main
+            - test
+
+jobs:
+    deploy-production:
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Deploy via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_USER }}
+                  password: ${{ secrets.SFTP_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/*"
+                  remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
+                  sftp_only: true
+
+    deploy-test:
+        if: github.ref == 'refs/heads/test'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Deploy test via SFTP
+              uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+              with:
+                  server: ${{ secrets.SFTP_HOST }}
+                  username: ${{ secrets.SFTP_TEST_USER }}
+                  password: ${{ secrets.SFTP_TEST_PASSWORD }}
+                  port: ${{ secrets.SFTP_PORT }}
+                  local_path: "./public/*"
+                  remote_path: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
+                  sftp_only: true
